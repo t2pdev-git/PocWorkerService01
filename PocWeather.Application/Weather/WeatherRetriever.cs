@@ -28,8 +28,8 @@ public class WeatherRetriever
 
             try
             {
-                var x = await _weatherService.GetWeatherForecast(location);
-                results.Add(new WeatherForecastDto(x.Location, x.Date, x.TemperatureC, x.Summary));
+                var weatherForecast = await _weatherService.GetWeatherForecast(location);
+                results.Add(new WeatherForecastDto(weatherForecast.Location, weatherForecast.Date, weatherForecast.TemperatureC, weatherForecast.Summary));
             
                 _logger.LogInformation("Completed: Getting weather forecast for {Location}", location);
             }

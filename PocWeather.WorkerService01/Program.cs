@@ -7,6 +7,7 @@ using PocWeather.WorkerService01;
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddHostedService<WeatherRetrievalWorker>();
+
 builder.Services.AddTransient<WeatherRetriever>();
 builder.Services.AddTransient<IWeatherService, AccuweatherService>();
 
@@ -21,23 +22,21 @@ public partial class Program
     private static void ConfigureLocationOptions(HostApplicationBuilder builder)
     {
         const string key = "LocationOptions";
-        var locationsSection = 
+        var section = 
             builder.Configuration.GetSection(key)
             ?? throw new InvalidOperationException(
                 $"Config value(s) for '{key}' is missing");
-        builder.Services.Configure<LocationOptions>(locationsSection);
+        builder.Services.Configure<LocationOptions>(section);
     }    
     
     private static void ConfigureRetrievalIntervalOptions(HostApplicationBuilder builder)
     {
         const string key = "RetrievalIntervalOptions";
-        var locationsSection = 
+        IConfigurationSection section = 
             builder.Configuration.GetSection(key)
             ?? throw new InvalidOperationException(
                 $"Config value(s) for '{key}' is missing");
-        builder.Services.Configure<RetrievalIntervalOptions>(locationsSection);
+        builder.Services.Configure<RetrievalIntervalOptions>(section);
     }
 
-    
-    
 }
