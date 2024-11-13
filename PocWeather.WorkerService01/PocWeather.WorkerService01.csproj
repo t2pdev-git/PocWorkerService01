@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-PocWorkerService01-af153c43-1b87-4a5e-af9c-68efe9086e56</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PocWeather.Application\PocWeather.Application.csproj" />
+    <ProjectReference Include="..\PocWeather.Infrastructure\PocWeather.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
