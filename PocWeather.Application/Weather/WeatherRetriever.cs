@@ -25,11 +25,20 @@ public class WeatherRetriever
         foreach (var location in _locationOptions.Locations)
         {
             _logger.LogInformation("Start: Getting weather forecast for {Location}", location);
+
+            try
+            {
+                var x = await _weatherService.GetWeatherForecast(location);
+                results.Add(new WeatherForecastDto(x.Location, x.Date, x.TemperatureC, x.Summary));
             
-            var x = await _weatherService.GetWeatherForecast(location);
-            results.Add(new WeatherForecastDto(x.Location, x.Date, x.TemperatureC, x.Summary));
-            
-            _logger.LogInformation("Completed: Getting weather forecast for {Location}", location);
+                _logger.LogInformation("Completed: Getting weather forecast for {Location}", location);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, 
+                    "Failed getting weather forecast for {Location}. Exception Message: {ExceptionMessage}", 
+                    location, ex.Message);
+            }
         }
         
         return results;

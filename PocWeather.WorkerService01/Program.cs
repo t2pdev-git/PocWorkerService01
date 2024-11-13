@@ -6,7 +6,7 @@ using PocWeather.WorkerService01;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
-builder.Services.AddHostedService<Worker>();
+builder.Services.AddHostedService<WeatherRetrievalWorker>();
 builder.Services.AddTransient<WeatherRetriever>();
 builder.Services.AddTransient<IWeatherService, AccuweatherService>();
 

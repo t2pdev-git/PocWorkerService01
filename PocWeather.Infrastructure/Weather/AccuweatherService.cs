@@ -9,17 +9,25 @@ public class AccuweatherService : IWeatherService
     {
         // This simulates a call to an external service possibly using HttpClient
         await Task.Delay(1000);
+        
+        // Simulate a random API call failure
+        Random randomFailure = new ();
+        var randomFailureValue = randomFailure.Next(1, 10);
+        if (randomFailureValue <= 3)
+        {
+            throw new SimulatedApiFailureException("Simulating an API failure");
+        }
 
         // Simulate a random temperature
-        var rng = new Random();
-        var temperatureC = rng.Next(-20, 50);
+        Random randomTemperature = new ();
+        var temperatureC = randomTemperature.Next(-20, 50);
 
         return new WeatherForecast
         {
             Location = location,
             Date = DateTime.Now,
             TemperatureC = temperatureC,
-            Summary = Summaries[rng.Next(Summaries.Length)]
+            Summary = Summaries[randomTemperature.Next(Summaries.Length)]
         };
     }
 
@@ -28,5 +36,6 @@ public class AccuweatherService : IWeatherService
         "Freezing", "Bracing", "Chilly", "Cool", "Mild",
         "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
-
 }
+
+public class SimulatedApiFailureException(string simulatingAnApiFailure) : Exception(simulatingAnApiFailure);
